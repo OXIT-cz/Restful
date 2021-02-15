@@ -1,5 +1,5 @@
 {
-	"name": "drahak/restful",
+	"name": "oxit/restful",
 	"type": "library",
 	"description": "Nette REST API bundle",
 	"keywords": ["nette", "rest", "api", "drahak"],
