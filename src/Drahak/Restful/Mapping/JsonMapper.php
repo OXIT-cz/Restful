@@ -1,7 +1,7 @@
 <?php
 namespace Drahak\Restful\Mapping;
 
-use Nette\Object;
+
 use Nette\Utils\Json;
 use Nette\Utils\JsonException;
 
@@ -10,9 +10,11 @@ use Nette\Utils\JsonException;
  * @package Drahak\Restful\Mapping
  * @author Drahomír Hanák
  */
-class JsonMapper extends Object implements IMapper
+class JsonMapper implements IMapper
 {
 
+	use \Nette\SmartObject;
+	
 	/**
 	 * Convert array or Traversable input to string output response
 	 * @param array|\Traversable $data

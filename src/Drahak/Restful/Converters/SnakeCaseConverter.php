@@ -2,16 +2,18 @@
 namespace Drahak\Restful\Converters;
 
 use Drahak\Restful\Utils\Strings;
-use Nette\Object;
+
 
 /**
  * SnakeCaseConverter
  * @package Drahak\Restful\Converters
  * @author Drahomír Hanák
  */
-class SnakeCaseConverter extends Object implements IConverter
+class SnakeCaseConverter implements IConverter
 {
 
+	use \Nette\SmartObject;
+	
     /**
      * Converts resource data keys to snake_case
      * @param array $resource

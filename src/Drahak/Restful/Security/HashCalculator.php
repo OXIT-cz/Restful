@@ -5,7 +5,7 @@ use Drahak\Restful\Http\IInput;
 use Drahak\Restful\InvalidStateException;
 use Drahak\Restful\Mapping\IMapper;
 use Drahak\Restful\Mapping\MapperContext;
-use Nette\Object;
+use Drahak\Restful\IResource;
 use Nette\Http\IRequest;
 
 /**
@@ -15,9 +15,11 @@ use Nette\Http\IRequest;
  *
  * @property-write string $privateKey
  */
-class HashCalculator extends Object implements IAuthTokenCalculator
+class HashCalculator implements IAuthTokenCalculator
 {
 
+	use \Nette\SmartObject;
+	
 	/** Fingerprint hash algorithm */
 	const HASH = 'sha256';
 
@@ -33,7 +35,11 @@ class HashCalculator extends Object implements IAuthTokenCalculator
 	 */
 	public function __construct(MapperContext $mapperContext, IRequest $httpRequest)
 	{
-		$this->mapper = $mapperContext->getMapper($httpRequest->getHeader('content-type'));
+		$contentType = $httpRequest->getHeader('content-type');
+		if ($contentType === NULL) {
+			$contentType = IResource::JSON;
+		}
+		$this->mapper = $mapperContext->getMapper($contentType);
 	}
 
 	/**

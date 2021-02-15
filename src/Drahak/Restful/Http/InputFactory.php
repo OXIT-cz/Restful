@@ -8,7 +8,7 @@ use Drahak\Restful\Mapping\MappingException;
 use Drahak\Restful\Validation\IValidationScopeFactory;
 use Drahak\Restful\Application\BadRequestException;
 use Nette\Http\IRequest;
-use Nette\Object;
+
 use Nette;
 
 /**
@@ -16,9 +16,11 @@ use Nette;
  * @package Drahak\Restful\Http
  * @author Drahomír Hanák
  */
-class InputFactory extends Object
+class InputFactory
 {
 
+	use \Nette\SmartObject;
+	
 	/** @var IRequest */
 	protected $httpRequest;
 

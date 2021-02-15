@@ -1,7 +1,7 @@
 <?php
 namespace Drahak\Restful\Resource;
 
-use Nette\Object;
+
 use Nette\Templating\Helpers;
 use Nette\Utils\MimeTypeDetector;
 
@@ -13,9 +13,11 @@ use Nette\Utils\MimeTypeDetector;
  * @property-read string $content
  * @property-read string $contentType
  */
-class Media extends Object
+class Media
 {
 
+	use \Nette\SmartObject;
+	
 	/** @var string */
 	private $content;
 

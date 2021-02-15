@@ -5,7 +5,7 @@ use ArrayAccess;
 use Serializable;
 use ArrayIterator;
 use IteratorAggregate;
-use Nette\Object;
+
 use Nette\Utils\Json;
 use Nette\MemberAccessException;
 
@@ -17,9 +17,11 @@ use Nette\MemberAccessException;
  * @property string $contentType Allowed result content type
  * @property-read array $data
  */
-class Resource extends Object implements ArrayAccess, Serializable, IteratorAggregate, IResource
+class Resource implements ArrayAccess, Serializable, IteratorAggregate, IResource
 {
 
+	use \Nette\SmartObject;
+	
 
 	/** @var array */
 	private $data = array();
@@ -132,13 +134,18 @@ class Resource extends Object implements ArrayAccess, Serializable, IteratorAggr
 	 */
 	public function &__get($name)
 	{
-		try {
-			return parent::__get($name);
-		} catch (MemberAccessException $e) {
-			if (isset($this->data[$name])) {
-				return $this->data[$name];
-			}
-			throw $e;
+//		try {
+//			return parent::__get($name);
+//		} catch (MemberAccessException $e) {
+//			if (isset($this->data[$name])) {
+//				return $this->data[$name];
+//			}
+//			throw $e;
+//		}
+		if (isset($this->data[$name])) {
+			return $this->data[$name];
+		} else {
+			throw new MemberAccessException('Property $name doesnt exist!');
 		}
 
 	}
@@ -150,11 +157,12 @@ class Resource extends Object implements ArrayAccess, Serializable, IteratorAggr
 	 */
 	public function __set($name, $value)
 	{
-		try {
-			parent::__set($name, $value);
-		} catch (MemberAccessException $e) {
-			$this->data[$name] = $value;
-		}
+//		try {
+//			parent::__set($name, $value);
+//		} catch (MemberAccessException $e) {
+//			$this->data[$name] = $value;
+//		}
+		$this->data[$name] = $value;
 	}
 
 	/**
@@ -164,7 +172,8 @@ class Resource extends Object implements ArrayAccess, Serializable, IteratorAggr
 	 */
 	public function __isset($name)
 	{
-		return !parent::__isset($name) ? isset($this->data[$name]) : TRUE;
+		//return !parent::__isset($name) ? isset($this->data[$name]) : TRUE;
+		return isset($this->data[$name]);
 	}
 
 	/**

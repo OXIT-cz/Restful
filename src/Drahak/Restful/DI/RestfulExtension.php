@@ -69,6 +69,7 @@ class RestfulExtension extends CompilerExtension
 			'privateKey' => NULL,
 			'requestTimeKey' => 'timestamp',
 			'requestTimeout' => 300,
+			'hashCalculator' => 'Drahak\Restful\Security\HashCalculator',
 		)
 	);
 
@@ -305,7 +306,7 @@ class RestfulExtension extends CompilerExtension
 	private function loadSecuritySection(ContainerBuilder $container, $config)
 	{
 		$container->addDefinition($this->prefix('security.hashCalculator'))
-			->setClass('Drahak\Restful\Security\HashCalculator')
+			->setClass($config['security']['hashCalculator'])
 			->addSetup('$service->setPrivateKey(?)', array($config['security']['privateKey']));
 
 		$container->addDefinition($this->prefix('security.hashAuthenticator'))
